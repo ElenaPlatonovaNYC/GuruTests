@@ -25,10 +25,10 @@ public class UnsuccessfulLoginTestCase implements ITest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.demo.guru99.com/V4/");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("ccpa-consent-notice")));
-        wait.pollingEvery(Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfElementLocated(By.className("close-icon")));
-        WebElement closeIframeBtn = driver.findElement(By.xpath("//*[contains(@class,'close-icon')]"));
+        wait.pollingEvery(Duration.ofSeconds(1)).until(ExpectedConditions.presenceOfElementLocated(By.id("close")));
+        WebElement closeIframeBtn = driver.findElement(By.xpath("//*[@id='close']"));
         closeIframeBtn.click();
         driver.switchTo().defaultContent();
     }
@@ -36,7 +36,7 @@ public class UnsuccessfulLoginTestCase implements ITest {
 
     @Test(dataProvider = "unsuccessfulCredentialsProvider")
     public void testLoginPassword(String nameOfTheTestScenario, String login, String password) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement loginInput = driver.findElement(By.name("uid"));
         loginInput.sendKeys(login);
         WebElement passwordInput = driver.findElement(By.name("password"));

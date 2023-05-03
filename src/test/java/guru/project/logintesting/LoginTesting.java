@@ -1,9 +1,6 @@
 package guru.project.logintesting;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -53,10 +50,10 @@ public class LoginTesting {
     }
 
     private void closeConsentNoticeIframe() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("ccpa-consent-notice")));
-        wait.pollingEvery(Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfElementLocated(By.className("close-icon")));
-        WebElement closeIframeBtn = driver.findElement(By.xpath("//*[contains(@class,'close-icon')]"));
+        wait.pollingEvery(Duration.ofSeconds(1)).until(ExpectedConditions.presenceOfElementLocated(By.id("close")));
+        WebElement closeIframeBtn = driver.findElement(By.xpath("//*[@id='close']"));
         closeIframeBtn.click();
         driver.switchTo().defaultContent();
     }
@@ -95,7 +92,9 @@ public class LoginTesting {
         alert.accept();
         Assert.assertTrue(text.contains("User or Password is not valid"));
 
+
     }
+
 
 
     @AfterClass
